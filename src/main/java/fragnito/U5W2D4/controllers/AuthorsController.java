@@ -1,7 +1,7 @@
-package fragnito.U5W2D3.controllers;
+package fragnito.U5W2D4.controllers;
 
-import fragnito.U5W2D3.entities.Author;
-import fragnito.U5W2D3.services.AuthorsService;
+import fragnito.U5W2D4.entities.Author;
+import fragnito.U5W2D4.services.AuthorsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

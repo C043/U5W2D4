@@ -1,6 +1,6 @@
-package fragnito.U5W2D3.exceptions;
+package fragnito.U5W2D4.exceptions;
 
-import fragnito.U5W2D3.payloads.ErrorsPayload;
+import fragnito.U5W2D4.payloads.ErrorsPayload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

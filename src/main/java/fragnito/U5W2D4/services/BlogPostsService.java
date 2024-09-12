@@ -1,10 +1,10 @@
-package fragnito.U5W2D3.services;
+package fragnito.U5W2D4.services;
 
-import fragnito.U5W2D3.entities.Author;
-import fragnito.U5W2D3.entities.BlogPost;
-import fragnito.U5W2D3.exceptions.NotFoundException;
-import fragnito.U5W2D3.payloads.BlogPostPayload;
-import fragnito.U5W2D3.repositories.BlogPostsRepository;
+import fragnito.U5W2D4.entities.Author;
+import fragnito.U5W2D4.entities.BlogPost;
+import fragnito.U5W2D4.exceptions.NotFoundException;
+import fragnito.U5W2D4.payloads.BlogPostPayload;
+import fragnito.U5W2D4.repositories.BlogPostsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

@@ -1,9 +1,9 @@
-package fragnito.U5W2D3.services;
+package fragnito.U5W2D4.services;
 
-import fragnito.U5W2D3.entities.Author;
-import fragnito.U5W2D3.exceptions.BadRequestException;
-import fragnito.U5W2D3.exceptions.NotFoundException;
-import fragnito.U5W2D3.repositories.AuthorsRepository;
+import fragnito.U5W2D4.entities.Author;
+import fragnito.U5W2D4.exceptions.BadRequestException;
+import fragnito.U5W2D4.exceptions.NotFoundException;
+import fragnito.U5W2D4.repositories.AuthorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
