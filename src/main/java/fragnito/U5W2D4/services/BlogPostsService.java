@@ -1,5 +1,7 @@
 package fragnito.U5W2D4.services;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import fragnito.U5W2D4.entities.Author;
 import fragnito.U5W2D4.entities.BlogPost;
 import fragnito.U5W2D4.exceptions.NotFoundException;
@@ -11,6 +13,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 
 @Service
@@ -20,6 +25,9 @@ public class BlogPostsService {
 
     @Autowired
     private AuthorsService authorsService;
+
+    @Autowired
+    private Cloudinary cloudinaryUploader;
 
     public Page<BlogPost> findBlogPosts(int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
@@ -57,5 +65,12 @@ public class BlogPostsService {
     public void deleteBlogPost(int postId) {
         BlogPost found = this.getBlogPostById(postId);
         this.blogPostsRepository.delete(found);
+    }
+
+    public void uploadCover(int postId, MultipartFile file) throws IOException {
+        String url = (String) this.cloudinaryUploader.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
+        BlogPost blogPost = this.getBlogPostById(postId);
+        blogPost.setCover(url);
+        this.blogPostsRepository.save(blogPost);
     }
 }

@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -52,5 +54,10 @@ public class BlogPostsController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBlogPost(@PathVariable int postId) {
         blogPostsService.deleteBlogPost(postId);
+    }
+
+    @PostMapping("/{postId}/cover")
+    public void uploadCover(@PathVariable int postId, @RequestParam("cover") MultipartFile file) throws IOException {
+        this.blogPostsService.uploadCover(postId, file);
     }
 }
