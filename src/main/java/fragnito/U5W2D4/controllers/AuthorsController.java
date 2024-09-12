@@ -44,7 +44,7 @@ public class AuthorsController {
     }
 
     @PutMapping("/{authorId}")
-    public Author putAuthor(@PathVariable int authorId, @RequestBody Author body) {
+    public Author putAuthor(@PathVariable int authorId, @RequestBody AuthorDTO body) {
         return authorsService.updateAuthor(authorId, body);
     }
 

@@ -38,13 +38,12 @@ public class AuthorsService {
         return author;
     }
 
-    public Author updateAuthor(int authorId, Author updatedAuthor) {
+    public Author updateAuthor(int authorId, AuthorDTO updatedAuthor) {
         Author found = this.findAuthorById(authorId);
-        found.setAvatar("https://ui-avatars.com/api/?name=" + updatedAuthor.getNome() + "+" + updatedAuthor.getCognome());
-        found.setNome(updatedAuthor.getNome());
-        found.setCognome(updatedAuthor.getCognome());
-        found.setEmail(updatedAuthor.getEmail());
-        found.setDataDiNascita(updatedAuthor.getDataDiNascita());
+        found.setNome(updatedAuthor.nome());
+        found.setCognome(updatedAuthor.cognome());
+        found.setEmail(updatedAuthor.email());
+        found.setDataDiNascita(updatedAuthor.dataDiNascita());
         return found;
     }
 

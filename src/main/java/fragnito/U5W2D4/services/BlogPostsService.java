@@ -51,13 +51,12 @@ public class BlogPostsService {
         return newBlogPost;
     }
 
-    public BlogPost updateBlogPost(int postId, BlogPost updatedBlogPost) {
+    public BlogPost updateBlogPost(int postId, BlogPostDTO updatedBlogPost) {
         BlogPost found = this.getBlogPostById(postId);
-        found.setCover(updatedBlogPost.getCover());
-        found.setTitolo(updatedBlogPost.getTitolo());
-        found.setContenuto(updatedBlogPost.getContenuto());
-        found.setTempoDiLettura(updatedBlogPost.getTempoDiLettura());
-        found.setCategoria(updatedBlogPost.getCategoria());
+        found.setTitolo(updatedBlogPost.titolo());
+        found.setContenuto(updatedBlogPost.contenuto());
+        found.setTempoDiLettura(updatedBlogPost.tempoDiLettura());
+        found.setCategoria(updatedBlogPost.categoria());
         this.blogPostsRepository.save(found);
         return found;
     }

@@ -46,7 +46,7 @@ public class BlogPostsController {
     }
 
     @PutMapping("/{postId}")
-    public BlogPost putBlogPost(@PathVariable int postId, @RequestBody BlogPost body) {
+    public BlogPost putBlogPost(@PathVariable int postId, @RequestBody BlogPostDTO body) {
         return blogPostsService.updateBlogPost(postId, body);
     }
 
