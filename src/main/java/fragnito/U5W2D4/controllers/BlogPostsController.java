@@ -1,12 +1,18 @@
 package fragnito.U5W2D4.controllers;
 
 import fragnito.U5W2D4.entities.BlogPost;
+import fragnito.U5W2D4.exceptions.BadRequestException;
 import fragnito.U5W2D4.payloads.BlogPostDTO;
+import fragnito.U5W2D4.payloads.RespBlogPost;
 import fragnito.U5W2D4.services.BlogPostsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/blogPosts")
@@ -28,8 +34,13 @@ public class BlogPostsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BlogPost postBlogPost(@RequestBody BlogPostDTO body) {
-        return blogPostsService.saveBlogPost(body);
+    public RespBlogPost postBlogPost(@RequestBody @Validated BlogPostDTO body, BindingResult validation) {
+        String messages = validation.getAllErrors().stream()
+                .map(objectError -> objectError.getDefaultMessage())
+                .collect(Collectors.joining(". "));
+        if (validation.hasErrors()) throw new BadRequestException("Ci sono stati errori di validazione: " + messages);
+        BlogPost blogPost = blogPostsService.saveBlogPost(body);
+        return new RespBlogPost(blogPost.getId());
     }
 
     @PutMapping("/{postId}")

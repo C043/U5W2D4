@@ -31,14 +31,14 @@ public class BlogPostsService {
     }
 
     public BlogPost saveBlogPost(BlogPostDTO body) {
-        Author found = this.authorsService.findAuthorById(body.getAuthorId());
+        Author found = this.authorsService.findAuthorById(body.authorId());
         BlogPost newBlogPost = new BlogPost();
         newBlogPost.setCover("https://picsum.photos/200/300");
-        newBlogPost.setTitolo(body.getTitolo());
+        newBlogPost.setTitolo(body.titolo());
         newBlogPost.setAuthor(found);
-        newBlogPost.setCategoria(body.getCategoria());
-        newBlogPost.setContenuto(body.getContenuto());
-        newBlogPost.setTempoDiLettura(body.getTempoDiLettura());
+        newBlogPost.setCategoria(body.categoria());
+        newBlogPost.setContenuto(body.contenuto());
+        newBlogPost.setTempoDiLettura(body.tempoDiLettura());
         this.blogPostsRepository.save(newBlogPost);
         return newBlogPost;
     }
