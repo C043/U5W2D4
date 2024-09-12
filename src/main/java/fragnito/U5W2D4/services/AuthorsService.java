@@ -1,5 +1,7 @@
 package fragnito.U5W2D4.services;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import fragnito.U5W2D4.entities.Author;
 import fragnito.U5W2D4.exceptions.BadRequestException;
 import fragnito.U5W2D4.exceptions.NotFoundException;
@@ -7,13 +9,18 @@ import fragnito.U5W2D4.payloads.AuthorDTO;
 import fragnito.U5W2D4.repositories.AuthorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
 public class AuthorsService {
     @Autowired
     private AuthorsRepository authorsRepository;
+
+    @Autowired
+    private Cloudinary cloudinaryUploader;
 
     public List<Author> findAllAuthors() {
         return this.authorsRepository.findAll();
@@ -43,5 +50,12 @@ public class AuthorsService {
 
     public void deleteAuthor(int authorId) {
         this.authorsRepository.delete(this.findAuthorById(authorId));
+    }
+
+    public void uploadAvatar(int authorId, MultipartFile file) throws IOException {
+        String url = (String) cloudinaryUploader.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
+        Author author = this.findAuthorById(authorId);
+        author.setAvatar(url);
+        this.authorsRepository.save(author);
     }
 }
