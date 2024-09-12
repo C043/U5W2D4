@@ -3,6 +3,7 @@ package fragnito.U5W2D4.services;
 import fragnito.U5W2D4.entities.Author;
 import fragnito.U5W2D4.exceptions.BadRequestException;
 import fragnito.U5W2D4.exceptions.NotFoundException;
+import fragnito.U5W2D4.payloads.AuthorDTO;
 import fragnito.U5W2D4.repositories.AuthorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,11 +23,12 @@ public class AuthorsService {
         return this.authorsRepository.findAll().stream().filter(author -> author.getId() == authorId).findFirst().orElseThrow(() -> new NotFoundException(authorId));
     }
 
-    public Author saveAuthor(Author body) {
-        if (this.authorsRepository.existsByEmail(body.getEmail())) throw new BadRequestException("Email già in uso.");
-        body.setAvatar("https://ui-avatars.com/api/?name=" + body.getNome() + "+" + body.getCognome());
-        this.authorsRepository.save(body);
-        return body;
+    public Author saveAuthor(AuthorDTO body) {
+        if (this.authorsRepository.existsByEmail(body.email())) throw new BadRequestException("Email già in uso.");
+        Author author = new Author(body.nome(), body.cognome(), body.email(), body.dataDiNascita(),
+                "https://ui-avatars.com/api/?name=" + body.nome() + "+" + body.cognome());
+        this.authorsRepository.save(author);
+        return author;
     }
 
     public Author updateAuthor(int authorId, Author updatedAuthor) {

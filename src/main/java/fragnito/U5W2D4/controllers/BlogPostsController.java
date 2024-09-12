@@ -1,7 +1,7 @@
 package fragnito.U5W2D4.controllers;
 
 import fragnito.U5W2D4.entities.BlogPost;
-import fragnito.U5W2D4.payloads.BlogPostPayload;
+import fragnito.U5W2D4.payloads.BlogPostDTO;
 import fragnito.U5W2D4.services.BlogPostsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,7 +28,7 @@ public class BlogPostsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BlogPost postBlogPost(@RequestBody BlogPostPayload body) {
+    public BlogPost postBlogPost(@RequestBody BlogPostDTO body) {
         return blogPostsService.saveBlogPost(body);
     }
 

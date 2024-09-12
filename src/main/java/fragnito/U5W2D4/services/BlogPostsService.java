@@ -3,7 +3,7 @@ package fragnito.U5W2D4.services;
 import fragnito.U5W2D4.entities.Author;
 import fragnito.U5W2D4.entities.BlogPost;
 import fragnito.U5W2D4.exceptions.NotFoundException;
-import fragnito.U5W2D4.payloads.BlogPostPayload;
+import fragnito.U5W2D4.payloads.BlogPostDTO;
 import fragnito.U5W2D4.repositories.BlogPostsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,7 +30,7 @@ public class BlogPostsService {
         return this.blogPostsRepository.findAll().stream().filter(post -> post.getId() == postId).findFirst().orElseThrow(() -> new NotFoundException(postId));
     }
 
-    public BlogPost saveBlogPost(BlogPostPayload body) {
+    public BlogPost saveBlogPost(BlogPostDTO body) {
         Author found = this.authorsService.findAuthorById(body.getAuthorId());
         BlogPost newBlogPost = new BlogPost();
         newBlogPost.setCover("https://picsum.photos/200/300");

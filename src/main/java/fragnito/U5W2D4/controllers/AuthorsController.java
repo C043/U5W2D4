@@ -1,12 +1,18 @@
 package fragnito.U5W2D4.controllers;
 
 import fragnito.U5W2D4.entities.Author;
+import fragnito.U5W2D4.exceptions.BadRequestException;
+import fragnito.U5W2D4.payloads.AuthorDTO;
+import fragnito.U5W2D4.payloads.RespAuthorDTO;
 import fragnito.U5W2D4.services.AuthorsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/authors")
@@ -26,8 +32,13 @@ public class AuthorsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Author saveAuthor(@RequestBody Author body) {
-        return authorsService.saveAuthor(body);
+    public RespAuthorDTO saveAuthor(@RequestBody @Validated AuthorDTO body, BindingResult validation) {
+        String messages = validation.getAllErrors().stream()
+                .map(objectError -> objectError.getDefaultMessage())
+                .collect(Collectors.joining(". "));
+        if (validation.hasErrors()) throw new BadRequestException("Ci sono stati errori di validazione: " + messages);
+        Author author = authorsService.saveAuthor(body);
+        return new RespAuthorDTO(author.getId());
     }
 
     @PutMapping("/{authorId}")

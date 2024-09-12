@@ -1,14 +1,12 @@
 package fragnito.U5W2D4.entities;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 @Entity
 @Table(name = "authors")
 public class Author {
@@ -26,4 +24,12 @@ public class Author {
     private String dataDiNascita;
     @Column(nullable = false)
     private String avatar;
+
+    public Author(String nome, String cognome, String email, String dataDiNascita, String avatar) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.email = email;
+        this.dataDiNascita = dataDiNascita;
+        this.avatar = avatar;
+    }
 }
